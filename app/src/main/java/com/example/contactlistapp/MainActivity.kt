@@ -15,15 +15,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ContactProfileAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // Inflate the layout using data binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        // Initialize the ViewModel using ViewModelProvider
         viewModel = ViewModelProvider(this)[ContactProfileViewModel::class.java]
         binding.contactsRecyclerView.setHasFixedSize(true)
         binding.contactsRecyclerView.layoutManager= LinearLayoutManager(this)
 
         adapter = ContactProfileAdapter(viewModel.contactProfileData.value?: emptyList())
         binding.contactsRecyclerView.adapter=adapter
+        // Observe changes in the contact profile data using LiveData
         viewModel.contactProfileData.observe(this)
 
         { contactsProfileData ->
@@ -32,7 +36,9 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
 
         }
+        // Create a list of new data for testing purposes
         val newDataList = listOf(
+            // Sample ContactProfileData objects
             ContactProfileData("James Bond", "077252525", "james@gmail.com"),
             ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
             ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
