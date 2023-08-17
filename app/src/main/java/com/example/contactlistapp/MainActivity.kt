@@ -2,7 +2,6 @@ package com.example.contactlistapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contactlistapp.Data.ContactProfileData
@@ -34,6 +33,8 @@ class MainActivity : AppCompatActivity() {
             // Update the contact list in the adapter
             adapter.contactProfileData = contactsProfileData
             adapter.notifyDataSetChanged()
+
+
 
         }
         // Create a list of new data for testing purposes
@@ -70,4 +71,29 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+ /* private fun initObservers() {
+
+        viewModel.contactProfileData.observe(this){result ->
+            when (result) {
+               is Result.Loading->{
+                    binding.progressBar.show()
+                }
+                is Result.Success<*>->{
+                    binding.progressBar.gone()
+                    binding.contactsRecyclerView.adapter = ContactProfileAdapter(result as List<ContactProfileData>)
+                }
+
+                is Result.Failure->{
+                    binding.progressBar.gone()
+                    Snackbar.make(binding.root, result.error, Snackbar.LENGTH_LONG).show()
+                }
+
+            }
+
+    }
+
+}*/
+
 }
