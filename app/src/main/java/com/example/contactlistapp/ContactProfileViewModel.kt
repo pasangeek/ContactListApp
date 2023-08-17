@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.contactlistapp.Data.ContactProfileData
+import com.example.contactlistapp.Common.Result
 
 class ContactProfileViewModel : ViewModel() {
     private val _contactProfileDataList = MutableLiveData<List<ContactProfileData>>()

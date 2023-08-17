@@ -2,10 +2,16 @@ package com.example.contactlistapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
+import com.example.contactlistapp.Common.Result
+import com.example.contactlistapp.Common.gone
+import com.example.contactlistapp.Common.show
 
 class MainActivity : AppCompatActivity() {
 
