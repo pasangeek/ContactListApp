@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Contact List App</string>
+    <string name="name" />
+    <string name="number" />
+    <string name="description" />
+    <string name="email" />
 </resources>
