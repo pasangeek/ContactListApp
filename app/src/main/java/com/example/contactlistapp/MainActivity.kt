@@ -33,10 +33,29 @@ class MainActivity : AppCompatActivity() {
 
         }
         val newDataList = listOf(
-            ContactProfileData("vbkjb","455661","hhujkg"),
-            ContactProfileData("vbkjb","455661","hhujkg"),
-            ContactProfileData("vbkjb","455661","hhujkg"),
-            ContactProfileData("vbkjb","455661","hhujkg")
+            ContactProfileData("James Bond", "077252525", "james@gmail.com"),
+            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
+            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
+            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
+            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
+            ContactProfileData("John Smith", "077552525", "emma.taylor@example.com"),
+            ContactProfileData("James Bond", "077252525", "james@gmail.com"),
+            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
+            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
+            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
+            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
+
+            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
+            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
+            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
+            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
+            ContactProfileData("James Bond", "077252525", "james@gmail.com"),
+            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
+            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
+            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
+            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
+            ContactProfileData("John Smith", "077552525", "emma.taylor@example.com")
+
             // Add more ContactProfileData objects as needed
         )
         viewModel.updateContactProfileList(newDataList)
