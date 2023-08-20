@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface ContactAbstract {
 
     suspend fun saveContact(contactProfileData: ContactProfileData )
-    suspend fun saveDataList(contactData: List<ContactProfileData>)
-   // suspend fun addContact(contactProfileData: ContactProfileData)
     suspend fun getContact(): Flow<ContactProfileData>
 
 }

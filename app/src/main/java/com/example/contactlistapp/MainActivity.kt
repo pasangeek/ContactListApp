@@ -13,11 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.databinding.ActivityMainBinding
 import com.example.contactlistapp.databinding.NewcontactBinding
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.contactlistapp.Common.Result
-import com.example.contactlistapp.Common.gone
-import com.example.contactlistapp.Common.show
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -56,20 +52,20 @@ binding.btAddNewContact.setOnClickListener{
     dialogBinding.vm = viewModel
     dialogBinding.lifecycleOwner = this
 
-
+    val nameBB = dialogBinding.etName
+    val emailBB = dialogBinding.etEmail
+    val numberBB = dialogBinding.etNumber
     AlertDialog.Builder(this)
         .setView(dialogBinding.root)
         .setPositiveButton("OK") { _, _ ->
-           val name = dialogBinding.etName.text.toString()
-            val number = dialogBinding.etNumber.text.toString()
-            val email = dialogBinding.etEmail.text.toString()
+           var name = nameBB.text.toString()
+            var number = numberBB.text.toString()
+            var email = emailBB.text.toString()
 
-
+           //var namevm = ContactProfileData(name,number, email)
             if (name.isNotEmpty() && number.isNotEmpty() && email.isNotEmpty()){
-//viewModel.saveDataList(name, number, email)
-          // viewModel.saveData()
 
-
+           viewModel.saveData()
                 Toast.makeText(this, "Adding contact", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
@@ -87,21 +83,23 @@ binding.btAddNewContact.setOnClickListener{
 
 }
 
+
         viewModel.retrieveData()
 
-
         binding.contactsRecyclerView.setHasFixedSize(true)
-            binding.contactsRecyclerView.layoutManager= LinearLayoutManager(this)
+             binding.contactsRecyclerView.layoutManager= LinearLayoutManager(this)
 
- adapter = ContactProfileAdapter(viewModel.contactProfileData.value?: emptyList())
+        adapter = ContactProfileAdapter(viewModel.contactProfileData.value?: emptyList())
         binding.contactsRecyclerView.adapter=adapter
         // Observe changes in the contact profile data using LiveData
         viewModel.profileData.observe(this)
 
-       { contactsProfileData ->
-           // Update the contact list in the adapter
-           adapter.contactProfileData   = listOf(contactsProfileData)
-           adapter.notifyDataSetChanged()
+       {contactsProfileData ->
+             //Update the contact list in the adapter
+           adapter.contactProfileData = listOf(contactsProfileData)
+            adapter.notifyDataSetChanged()
+
+
 
         }
 
@@ -111,30 +109,4 @@ binding.btAddNewContact.setOnClickListener{
 
 
 }
-
-   /*   private fun initObservers(){
-
-
-        viewModel.contactProfileData.observe(this){ result ->
-            when (result) {
-                is Result.Loading->{
-                    binding.progressBar.show()
-                }
-                is Result.Success<*>->{
-                   binding.progressBar.gone()
-                   binding.contactsRecyclerView.adapter = ContactProfileAdapter(result.result as List<ContactProfileData>)
-                }
-
-                is Result.Failure->{
-                    binding.progressBar.gone()
-                    Snackbar.make(binding.root, result.error, Snackbar.LENGTH_LONG).show()
-                }
-
-            }
-
-        }
-
-
-
-    }   */
 }
