@@ -4,4 +4,7 @@
     <string name="number" />
     <string name="description" />
     <string name="email" />
+    <string name="phonenumber">Phone Number</string>
+    <string name="emailadress">E mail Address</string>
+    <string name="add">Save</string>
 </resources>
