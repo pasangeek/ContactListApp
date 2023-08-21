@@ -5,6 +5,7 @@ package com.example.contactlistapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.databinding.ListItemBinding
@@ -16,6 +17,35 @@ class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
     private var expandedPosition: Int = RecyclerView.NO_POSITION
     inner class ProfileViewHolder( val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    private fun menuPopUp(view: View, position: Int) {
+        val popUpMenus = PopupMenu(view.context, view)
+        popUpMenus.inflate(R.menu.menu_edit_delete)
+        popUpMenus.setOnMenuItemClickListener{ menuItem ->
+            when (menuItem.itemId){
+                R.id.editText -> {
+                    // Handle the Edit option for the specific item at 'position'
+                    // Show an AlertDialog for editing
+                    true
+                } R.id.delete -> {
+                // Handle the Delete option for the specific item at 'position'
+                // Show a confirmation dialog and delete the item if confirmed
+                true
+            }
+                else -> false
+
+            }
+        }
+        // Show the PopupMenu
+        val popup = PopupMenu::class.java.getDeclaredField("mPopup")
+        popup.isAccessible = true
+        val menu = popup.get(popUpMenus)
+        menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+            .invoke(menu, true)
+
+        popUpMenus.show()
+        }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
@@ -34,6 +64,12 @@ class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
         holder.binding.name.text = contactsProfile.name
         holder.binding.number.text = contactsProfile.number
         holder.binding.email.text = contactsProfile.email
+
+        holder.binding.mMenus.setOnClickListener{
+
+            menuPopUp(it, position)
+
+        }
 
         // Check if this item is the currently expanded one
         val isExpanded = position == expandedPosition
