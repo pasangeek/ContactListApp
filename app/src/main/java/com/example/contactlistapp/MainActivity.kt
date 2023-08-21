@@ -22,10 +22,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel:ContactProfileViewModel
     private lateinit var adapter: ContactProfileAdapter
+
+    private lateinit var userList:ArrayList<ContactProfileData>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Inflate the layout using data binding
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+
+        userList = ArrayList()
+
 
         viewModel = ViewModelProvider(this)[ContactProfileViewModel::class.java]
         binding.vm= viewModel
@@ -50,14 +55,17 @@ binding.btAddNewContact.setOnClickListener{
     val numberBB = dialogBinding.etNumber
     AlertDialog.Builder(this)
         .setView(dialogBinding.root)
-        .setPositiveButton("OK") { _, _ ->
-            var name = nameBB.text.toString()
-            var number = numberBB.text.toString()
-            var email = emailBB.text.toString()
+        .setPositiveButton("OK") {  dialog, _ ->
+            val name = nameBB.text.toString()
+            val number = numberBB.text.toString()
+            val email = emailBB.text.toString()
 
             //var namevm = ContactProfileData(name,number, email)
             if (name.isNotEmpty() && number.isNotEmpty() && email.isNotEmpty()){
-
+                userList.add(ContactProfileData("Name: $name","Mobile No. : $number",email))
+                adapter.notifyDataSetChanged()
+                Toast.makeText(this,"Adding User Information Success",Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
                 //viewModel.saveData()
                 Toast.makeText(this, "Adding contact", Toast.LENGTH_LONG).show()
             } else {
@@ -88,35 +96,8 @@ binding.btAddNewContact.setOnClickListener{
 
 
         }
-        // Create a list of new data for testing purposes
-        val newDataList = listOf(
-            // Sample ContactProfileData objects
-            ContactProfileData("James Bond", "077252525", "james@gmail.com"),
-            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
-            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
-            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
-            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
-            ContactProfileData("John Smith", "077552525", "emma.taylor@example.com"),
-            ContactProfileData("James Bond", "077252525", "james@gmail.com"),
-            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
-            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
-            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
-            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
 
-            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
-            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
-            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
-            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
-            ContactProfileData("James Bond", "077252525", "james@gmail.com"),
-            ContactProfileData("John Smith", "087252525", "linda.miller@example.com"),
-            ContactProfileData("Jane Doe", "070252525", "jennifer.davis@example.com"),
-            ContactProfileData("Michael Johnson", "079252525", "david.johnson@example.com"),
-            ContactProfileData("James Bond", "077552525", "james@gmail.com"),
-            ContactProfileData("John Smith", "077552525", "emma.taylor@example.com")
-
-            // Add more ContactProfileData objects as needed
-        )
-        viewModel.updateContactProfileList(newDataList)
+        viewModel.updateContactProfileList(userList)
 
 
 
