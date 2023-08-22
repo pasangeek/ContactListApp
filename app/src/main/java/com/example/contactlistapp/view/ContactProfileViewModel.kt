@@ -1,4 +1,4 @@
-package com.example.contactlistapp
+package com.example.contactlistapp.view
 
 
 import androidx.lifecycle.LiveData
@@ -12,18 +12,14 @@ class ContactProfileViewModel : ViewModel() {
     private val _contactProfileDataList = MutableLiveData<ArrayList<ContactProfileData>>()
     val contactProfileData: LiveData<ArrayList<ContactProfileData>> = _contactProfileDataList
 
-   // val name: MutableLiveData<String> = MutableLiveData("")
-   // val number: MutableLiveData<String> = MutableLiveData("")
-   // val email: MutableLiveData<String> = MutableLiveData("")
+   val name: MutableLiveData<String> = MutableLiveData("")
+val number: MutableLiveData<String> = MutableLiveData("")
+   val email: MutableLiveData<String> = MutableLiveData("")
 
 
     fun updateContactProfileList(userList: ArrayList<ContactProfileData>) {
 
         _contactProfileDataList.value = userList
-    }
-
-    fun deleteContacts(deletedContacts: ArrayList<ContactProfileData>) {
-        _contactProfileDataList.value = deletedContacts
     }
 
 

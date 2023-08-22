@@ -1,5 +1,4 @@
-package com.example.contactlistapp
-
+package com.example.contactlistapp.view
 
 
 import android.view.LayoutInflater
@@ -7,39 +6,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.ContactProfileData
+import com.example.contactlistapp.R
 import com.example.contactlistapp.databinding.ListItemBinding
-import java.util.ArrayList
-import java.util.Locale
 
 
-class ContactProfileAdapter (
+class ContactProfileAdapter(
     var contactProfileData: ArrayList<ContactProfileData>,
     private val viewModel: ContactProfileViewModel
-    ) :
+) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
-    //private var filteredData: ArrayList<ContactProfileData> = ArrayList(contactProfileData)
 
-    fun setFilteredList(contactProfileData: ArrayList<ContactProfileData>){
-this.contactProfileData = contactProfileData
+
+    fun setFilteredList(contactProfileData: ArrayList<ContactProfileData>) {
+        this.contactProfileData = contactProfileData
         notifyDataSetChanged()
     }
 
     // Store the position of the currently expanded item
     private var expandedPosition: Int = RecyclerView.NO_POSITION
-    inner class ProfileViewHolder( val binding: ListItemBinding) :
+
+    inner class ProfileViewHolder(val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+
+    // Handles the popup menu when the more options icon is clicked
     private fun menuPopUp(view: View, position: Int) {
 
 
         val popUpMenus = PopupMenu(view.context, view)
         popUpMenus.inflate(R.menu.menu_edit_delete)
-        popUpMenus.setOnMenuItemClickListener{ menuItem ->
-            when (menuItem.itemId){
+        popUpMenus.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.editText -> {
                     // Handle the Edit option for the specific item at 'position'
                     // Show an AlertDialog for editing
@@ -51,9 +51,8 @@ this.contactProfileData = contactProfileData
                 R.id.delete -> {
                     showDeleteConfirmationDialog(view, position)
 
-true
+                    true
                 }
-
 
 
                 else -> false
@@ -66,11 +65,12 @@ true
         val menu = popup.get(popUpMenus)
         menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
             .invoke(menu, true)
-           popUpMenus.show()
+        popUpMenus.show()
 
 
     }
-    private fun showEditDialog(view: View,position: Int) {
+    // Displays an edit dialog when the "Edit" option is clicked in the popup menu
+    private fun showEditDialog(view: View, position: Int) {
         val inflater = LayoutInflater.from(view.context)
         val editView = inflater.inflate(R.layout.addnewcontact, null)
         val nameEditText = editView.findViewById<EditText>(R.id.etName)
@@ -103,8 +103,8 @@ true
             .create()
             .show()
     }
-
-    private fun showDeleteConfirmationDialog(view: View,position: Int) {
+    // Displays a confirmation dialog for deleting an item
+    private fun showDeleteConfirmationDialog(view: View, position: Int) {
 
 
         val context = LayoutInflater.from(view.context) // Replace with your context source
@@ -114,8 +114,8 @@ true
             .setMessage("Are you sure you want to delete this item?")
             .setPositiveButton("Delete") { dialog, _ ->
                 // Delete the item from the data list
-             // viewModel.deleteContacts(view,position)
-               contactProfileData.removeAt(position)
+                // viewModel.deleteContacts(view,position)
+                contactProfileData.removeAt(position)
                 notifyItemRemoved(position)
 
                 dialog.dismiss()
@@ -126,16 +126,21 @@ true
             .create()
             .show()
     }
-
+    // Inflates the layout for each list item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
-        //val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        // Inflate the layout using data binding
-        return ProfileViewHolder(ListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+
+        return ProfileViewHolder(
+            ListItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-
+    // Returns the total number of items in the dataset
     override fun getItemCount(): Int = contactProfileData.size
-
+    // Binds data to the views in each list item
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         // Bind the contact profile data to the layout using data binding
         val contactsProfile = contactProfileData[position]
@@ -144,7 +149,7 @@ true
         holder.binding.number.text = contactsProfile.number
         holder.binding.email.text = contactsProfile.email
 
-        holder.binding.mMenus.setOnClickListener{
+        holder.binding.mMenus.setOnClickListener {
 
             menuPopUp(it, position)
 
@@ -174,8 +179,6 @@ true
             notifyItemChanged(position)
         }
     }
-
-
 
 
 }
