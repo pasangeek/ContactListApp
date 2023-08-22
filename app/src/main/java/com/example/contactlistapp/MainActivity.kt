@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.example.contactlistapp.Common.Result
 import com.example.contactlistapp.Common.gone
 import com.example.contactlistapp.Common.show
 import com.example.contactlistapp.databinding.AddnewcontactBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +38,16 @@ class MainActivity : AppCompatActivity() {
         binding.vm= viewModel
         binding.lifecycleOwner = this
 
+binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
 
+    override fun onQueryTextChange(newText: String?): Boolean {
+    filter(newText ?: "")
+        return true
+    }
+})
 binding.btAddNewContact.setOnClickListener{
 
     val inflater = LayoutInflater.from(this)
@@ -127,5 +138,18 @@ binding.btAddNewContact.setOnClickListener{
     }
 
 }*/
+ private fun filter(query: String) {
+     val filteredList = java.util.ArrayList<ContactProfileData>()
+     for (i in userList) {
+         if (i.name.lowercase(Locale.ROOT).contains(query)) {
+             filteredList.add(i)
+         }
+     }
 
+     if (filteredList.isEmpty()) {
+         Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
+     } else {
+         adapter.setFilteredList(filteredList)
+     }
+ }
 }

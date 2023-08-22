@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.databinding.ListItemBinding
 import java.util.ArrayList
+import java.util.Locale
 
 
 class ContactProfileAdapter (
@@ -19,8 +21,12 @@ class ContactProfileAdapter (
     private val viewModel: ContactProfileViewModel
     ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
+    //private var filteredData: ArrayList<ContactProfileData> = ArrayList(contactProfileData)
 
-
+    fun setFilteredList(contactProfileData: ArrayList<ContactProfileData>){
+this.contactProfileData = contactProfileData
+        notifyDataSetChanged()
+    }
 
     // Store the position of the currently expanded item
     private var expandedPosition: Int = RecyclerView.NO_POSITION
@@ -28,7 +34,7 @@ class ContactProfileAdapter (
         RecyclerView.ViewHolder(binding.root)
 
     private fun menuPopUp(view: View, position: Int) {
-        
+
 
         val popUpMenus = PopupMenu(view.context, view)
         popUpMenus.inflate(R.menu.menu_edit_delete)
