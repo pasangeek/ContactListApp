@@ -5,13 +5,21 @@ package com.example.contactlistapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.PopupMenu
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.databinding.ListItemBinding
 
-class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
+
+class ContactProfileAdapter (
+    var contactProfileData: List<ContactProfileData>,
+    
+    ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
+
+
 
     // Store the position of the currently expanded item
     private var expandedPosition: Int = RecyclerView.NO_POSITION
@@ -19,6 +27,8 @@ class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
         RecyclerView.ViewHolder(binding.root)
 
     private fun menuPopUp(view: View, position: Int) {
+
+
         val popUpMenus = PopupMenu(view.context, view)
         popUpMenus.inflate(R.menu.menu_edit_delete)
         popUpMenus.setOnMenuItemClickListener{ menuItem ->
@@ -26,12 +36,18 @@ class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
                 R.id.editText -> {
                     // Handle the Edit option for the specific item at 'position'
                     // Show an AlertDialog for editing
+                    showEditDialog(view, position)
                     true
-                } R.id.delete -> {
+                }
+
+
+          /*       R.id.delete -> {
                 // Handle the Delete option for the specific item at 'position'
                 // Show a confirmation dialog and delete the item if confirmed
-                true
-            }
+                     showDeleteConfirmationDialog()
+                     notifyDataSetChanged()
+
+            }*/
                 else -> false
 
             }
@@ -42,11 +58,63 @@ class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
         val menu = popup.get(popUpMenus)
         menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
             .invoke(menu, true)
-
-        popUpMenus.show()
-        }
+           popUpMenus.show()
 
 
+    }
+    private fun showEditDialog(view: View,position: Int) {
+        val inflater = LayoutInflater.from(view.context)
+        val editView = inflater.inflate(R.layout.addnewcontact, null)
+        val nameEditText = editView.findViewById<EditText>(R.id.etName)
+        val numberEditText = editView.findViewById<EditText>(R.id.etNumber)
+        val emailEditText = editView.findViewById<EditText>(R.id.etEmail)
+
+        val currentItem = contactProfileData[position]
+        nameEditText.setText(currentItem.name)
+        numberEditText.setText(currentItem.number)
+        emailEditText.setText(currentItem.email)
+
+
+        AlertDialog.Builder(view.context)
+            .setTitle("Edit Item")
+            .setView(editView)
+            .setPositiveButton("Save") { dialog, _ ->
+                // Update the item data with the edited values
+                val newName = nameEditText.text.toString()
+                val newNumber = numberEditText.text.toString()
+
+                currentItem.name = newName
+                currentItem.number = newNumber
+
+                notifyItemChanged(position)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun showDeleteConfirmationDialog(view: View,position: Int) {
+        val context = LayoutInflater.from(view.context) // Replace with your context source
+
+        AlertDialog.Builder(view.context)
+            .setTitle("Delete Item")
+            .setMessage("Are you sure you want to delete this item?")
+            .setPositiveButton("Delete") { dialog, _ ->
+                // Delete the item from the data list
+
+                notifyItemRemoved(position)
+
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
         //val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -97,6 +165,8 @@ class ContactProfileAdapter (var contactProfileData: List<ContactProfileData>) :
     }
 
 }
+
+
 
 
 

@@ -22,4 +22,9 @@ class ContactProfileViewModel : ViewModel() {
         _contactProfileDataList.value = userList
     }
 
+    fun deleteContacts(deletedContacts: ArrayList<ContactProfileData>) {
+        _contactProfileDataList.value = deletedContacts
+    }
+
+
 }
