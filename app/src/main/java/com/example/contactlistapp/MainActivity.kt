@@ -83,7 +83,7 @@ binding.btAddNewContact.setOnClickListener{
         binding.contactsRecyclerView.setHasFixedSize(true)
         binding.contactsRecyclerView.layoutManager= LinearLayoutManager(this)
 
-        adapter = ContactProfileAdapter(viewModel.contactProfileData.value?: emptyList())
+        adapter = ContactProfileAdapter(userList,viewModel )
         binding.contactsRecyclerView.adapter=adapter
         // Observe changes in the contact profile data using LiveData
         viewModel.contactProfileData.observe(this)

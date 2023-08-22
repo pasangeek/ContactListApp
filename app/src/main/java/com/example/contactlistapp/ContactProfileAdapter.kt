@@ -11,11 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.databinding.ListItemBinding
+import java.util.ArrayList
 
 
 class ContactProfileAdapter (
-    var contactProfileData: List<ContactProfileData>,
-    
+    var contactProfileData: ArrayList<ContactProfileData>,
+    private val viewModel: ContactProfileViewModel
     ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
 
@@ -27,7 +28,7 @@ class ContactProfileAdapter (
         RecyclerView.ViewHolder(binding.root)
 
     private fun menuPopUp(view: View, position: Int) {
-
+        
 
         val popUpMenus = PopupMenu(view.context, view)
         popUpMenus.inflate(R.menu.menu_edit_delete)
@@ -41,13 +42,14 @@ class ContactProfileAdapter (
                 }
 
 
-          /*       R.id.delete -> {
-                // Handle the Delete option for the specific item at 'position'
-                // Show a confirmation dialog and delete the item if confirmed
-                     showDeleteConfirmationDialog()
-                     notifyDataSetChanged()
+                R.id.delete -> {
+                    showDeleteConfirmationDialog(view, position)
 
-            }*/
+true
+                }
+
+
+
                 else -> false
 
             }
@@ -97,6 +99,8 @@ class ContactProfileAdapter (
     }
 
     private fun showDeleteConfirmationDialog(view: View,position: Int) {
+
+
         val context = LayoutInflater.from(view.context) // Replace with your context source
 
         AlertDialog.Builder(view.context)
@@ -104,7 +108,8 @@ class ContactProfileAdapter (
             .setMessage("Are you sure you want to delete this item?")
             .setPositiveButton("Delete") { dialog, _ ->
                 // Delete the item from the data list
-
+             // viewModel.deleteContacts(view,position)
+               contactProfileData.removeAt(position)
                 notifyItemRemoved(position)
 
                 dialog.dismiss()
@@ -163,6 +168,9 @@ class ContactProfileAdapter (
             notifyItemChanged(position)
         }
     }
+
+
+
 
 }
 
