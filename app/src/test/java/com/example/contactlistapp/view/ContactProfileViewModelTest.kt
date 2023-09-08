@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.example.contactlistapp.Data.ContactProfileData
 import junit.framework.Assert.assertNull
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,7 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-internal class ContactProfileViewModelTest{
+internal class ContactProfileViewModelTest {
 
     // This rule ensures that LiveData operations are performed immediately
     @get:Rule
@@ -73,5 +74,20 @@ internal class ContactProfileViewModelTest{
         assertEquals(contactList, updatedValue)
     }
 
+    //This test ensures that these properties are
+    // properly initialized and are not null,
+    // which is essential for the proper functioning of the ViewModel.
+    // You can expand this test method to include additional assertions
+    // or specific checks based on your requirements.
+    @Test
+    fun testNullValues() {
+        // Create an instance of ContactProfileViewModel
+        val viewModel = ContactProfileViewModel()
+
+        // Verify that important properties are not null
+        assertNotNull(viewModel.contactProfileData)
+        assertNotNull(viewModel._contactProfileDataList)
+
+    }
 
 }

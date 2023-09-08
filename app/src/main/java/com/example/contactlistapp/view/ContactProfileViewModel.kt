@@ -9,7 +9,7 @@ import com.example.contactlistapp.Common.Result
 import java.util.ArrayList
 
 class ContactProfileViewModel : ViewModel() {
-    private val _contactProfileDataList = MutableLiveData<ArrayList<ContactProfileData>>()
+    val _contactProfileDataList = MutableLiveData<ArrayList<ContactProfileData>>()
     val contactProfileData: LiveData<ArrayList<ContactProfileData>> = _contactProfileDataList
 
 

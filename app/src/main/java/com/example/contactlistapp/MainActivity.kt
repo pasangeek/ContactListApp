@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
     private fun filter(query: String) {
         val filteredList = java.util.ArrayList<ContactProfileData>()
         for (i in userList) {
-            if (i.name.lowercase(Locale.ROOT).contains(query)) {
+            if (i.name?.lowercase(Locale.ROOT)?.contains(query)!!) {
                 filteredList.add(i)
             }
         }
