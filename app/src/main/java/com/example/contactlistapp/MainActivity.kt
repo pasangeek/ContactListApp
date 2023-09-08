@@ -83,8 +83,8 @@ class MainActivity : AppCompatActivity() {
                     if (name.isNotEmpty() && number.isNotEmpty() && email.isNotEmpty()) {
                         userList.add(
                             ContactProfileData(
-                                "Name: $name",
-                                "Mobile No. : $number",
+                                " $name",
+                                " $number",
                                 email
                             )
                         )

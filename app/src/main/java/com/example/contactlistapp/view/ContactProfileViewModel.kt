@@ -12,9 +12,6 @@ class ContactProfileViewModel : ViewModel() {
     private val _contactProfileDataList = MutableLiveData<ArrayList<ContactProfileData>>()
     val contactProfileData: LiveData<ArrayList<ContactProfileData>> = _contactProfileDataList
 
-   val name: MutableLiveData<String> = MutableLiveData("")
-val number: MutableLiveData<String> = MutableLiveData("")
-   val email: MutableLiveData<String> = MutableLiveData("")
 
 
     fun updateContactProfileList(userList: ArrayList<ContactProfileData>) {
