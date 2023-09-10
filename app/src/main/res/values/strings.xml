@@ -3,4 +3,10 @@
     <string name="name" />
     <string name="number" />
     <string name="email" />
+    <string name="toast_adding_user_success">Adding User Information Success</string>
+    <string name="toast_adding_contact">Adding contact</string>
+    <string name="toast_cancel">Cancel</string>
+    <string name="toast_no_data_found">No Data found</string>
+    <string name="toast_missing_fields">Please fill in the following fields: %1$s</string>
+
 </resources>
