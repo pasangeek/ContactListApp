@@ -78,28 +78,42 @@ class MainActivity : AppCompatActivity() {
                     val name = nameBB.text.toString()
                     val number = numberBB.text.toString()
                     val email = emailBB.text.toString()
+                    val missingFields = mutableListOf<String>()
 
-                    //var namevm = ContactProfileData(name,number, email)
-                    if (name.isNotEmpty() && number.isNotEmpty() && email.isNotEmpty()) {
+                    if (name.isEmpty()) {
+                        missingFields.add("Name")
+                    }
+
+                    if (number.isEmpty()) {
+                        missingFields.add("Number")
+                    }
+
+                    if (email.isEmpty()) {
+                        missingFields.add("Email")
+                    }
+
+                    if (missingFields.isEmpty()) {
                         userList.add(
                             ContactProfileData(
+
                                 " $name",
-                                " $number",
-                                email
+                                " $number","$email"
+
+
+
                             )
                         )
                         adapter.notifyDataSetChanged()
-                        Toast.makeText(this, "Adding User Information Success", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(this, getString(R.string.toast_adding_user_success), Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
-                        //viewModel.saveData()
-                        Toast.makeText(this, "Adding contact", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.toast_adding_contact), Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-
+                        val missingFieldsMessage = missingFields.joinToString(", ")
+                        val errorMessage = "Please fill in the following fields: $missingFieldsMessage"
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }.setNegativeButton("Cancel") { _, _ ->
-                    Toast.makeText(this, "Cancel", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.toast_cancel), Toast.LENGTH_LONG).show()
                 }
                 .create().show()
 
@@ -141,7 +155,7 @@ class MainActivity : AppCompatActivity() {
         }
 // Update the adapter with the filtered list or show a message
         if (filteredList.isEmpty()) {
-            Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_no_data_found), Toast.LENGTH_SHORT).show()
         } else {
             adapter.setFilteredList(filteredList)
         }
