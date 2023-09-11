@@ -1,15 +1,19 @@
 package com.example.contactlistapp.view
 
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.ContactProfileData
 import com.example.contactlistapp.R
+import com.example.contactlistapp.databinding.ActivityMainBinding
+import com.example.contactlistapp.databinding.AddnewcontactBinding
 import com.example.contactlistapp.databinding.ListItemBinding
 
 
@@ -71,16 +75,18 @@ class ContactProfileAdapter(
     }
     // Displays an edit dialog when the "Edit" option is clicked in the popup menu
     private fun showEditDialog(view: View, position: Int) {
+
+
         val inflater = LayoutInflater.from(view.context)
         val editView = inflater.inflate(R.layout.addnewcontact, null)
+
+
         val nameEditText = editView.findViewById<EditText>(R.id.etName)
         val numberEditText = editView.findViewById<EditText>(R.id.etNumber)
         val emailEditText = editView.findViewById<EditText>(R.id.etEmail)
 
         val currentItem = contactProfileData[position]
-        nameEditText.setText(currentItem.name)
-        numberEditText.setText(currentItem.number)
-        emailEditText.setText(currentItem.email)
+
 
 
         AlertDialog.Builder(view.context)
@@ -90,10 +96,10 @@ class ContactProfileAdapter(
                 // Update the item data with the edited values
                 val newName = nameEditText.text.toString()
                 val newNumber = numberEditText.text.toString()
-
+                val newEmail = emailEditText.text.toString()
                 currentItem.name = newName
                 currentItem.number = newNumber
-
+currentItem.email = newEmail
                 notifyItemChanged(position)
                 dialog.dismiss()
             }
