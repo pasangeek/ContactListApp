@@ -1,30 +1,26 @@
 package com.example.contactlistapp.view
 
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contactlistapp.Data.ContactProfileData
+import com.example.contactlistapp.Data.Contact
 import com.example.contactlistapp.R
-import com.example.contactlistapp.databinding.ActivityMainBinding
-import com.example.contactlistapp.databinding.AddnewcontactBinding
 import com.example.contactlistapp.databinding.ListItemBinding
 
 
 class ContactProfileAdapter(
-    var contactProfileData: ArrayList<ContactProfileData>,
+    var contactProfileData: ArrayList<Contact>,
     private val viewModel: ContactProfileViewModel
 ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
 
 
-    fun setFilteredList(contactProfileData: ArrayList<ContactProfileData>) {
+    fun setFilteredList(contactProfileData: ArrayList<Contact>) {
         this.contactProfileData = contactProfileData
         notifyDataSetChanged()
     }

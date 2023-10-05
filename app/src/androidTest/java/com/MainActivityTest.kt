@@ -1,13 +1,11 @@
 package com
 
-import android.content.DialogInterface
 import android.text.Editable
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ActivityScenario
-import com.example.contactlistapp.Data.ContactProfileData
+import com.example.contactlistapp.Data.Contact
 
 import com.example.contactlistapp.MainActivity
 import com.example.contactlistapp.view.ContactProfileAdapter
@@ -75,9 +73,9 @@ class MainActivityTest {
             }
 
             // Set up the ViewModel's userListLiveData
-            val userListLiveData = MutableLiveData<ArrayList<ContactProfileData>>()
-            val userList = ArrayList<ContactProfileData>()
-            Mockito.`when`(mockViewModel.contactProfileData).thenReturn(userListLiveData)
+            val userListLiveData = MutableLiveData<ArrayList<Contact>>()
+            val userList = ArrayList<Contact>()
+            Mockito.`when`(mockViewModel.contact).thenReturn(userListLiveData)
             userListLiveData.value = userList
 
             // Set up the RecyclerView and adapter

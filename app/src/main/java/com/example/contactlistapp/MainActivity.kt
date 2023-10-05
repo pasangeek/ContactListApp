@@ -10,7 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.contactlistapp.Data.ContactProfileData
+import com.example.contactlistapp.Data.Contact
 import com.example.contactlistapp.databinding.ActivityMainBinding
 import com.example.contactlistapp.databinding.AddnewcontactBinding
 import com.example.contactlistapp.view.ContactProfileAdapter
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var viewModel: ContactProfileViewModel
     lateinit var adapter: ContactProfileAdapter
-    lateinit var userList: ArrayList<ContactProfileData>
+    lateinit var userList: ArrayList<Contact>
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // Observe changes in the contact profile data using LiveData
-        viewModel.contactProfileData.observe(this)
+        viewModel.contact.observe(this)
 
         { contactsProfileData ->
             // Update the contact list in the adapter
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (missingFields.isEmpty()) {
                     userList.add(
-                        ContactProfileData(
+                        Contact(
 
                             " $name",
                             " $number","$email"
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 
     // Filter the list based on the search query
     private fun filter(query: String) {
-        val filteredList = java.util.ArrayList<ContactProfileData>()
+        val filteredList = java.util.ArrayList<Contact>()
         for (i in userList) {
             if (i.name?.lowercase(Locale.ROOT)?.contains(query)!!) {
                 filteredList.add(i)
