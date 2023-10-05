@@ -23,7 +23,7 @@ class ContactProfileViewModel (application : Application): AndroidViewModel(appl
         _contactList.value = userList
     }*/
 
-    private val readAllData: LiveData<List<Contact>>
+    val readAllData: LiveData<List<Contact>>
     private val repository: ContactRepository
 
     init {

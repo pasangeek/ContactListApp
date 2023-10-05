@@ -15,7 +15,7 @@ import com.example.contactlistapp.databinding.ListItemBinding
 
 
 class ContactProfileAdapter(
-    var contactProfileData: ArrayList<Contact>,
+    var contactProfileData: List<Contact>,
     private val viewModel: ContactProfileViewModel
 ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
@@ -118,7 +118,7 @@ currentItem.email = newEmail
             .setPositiveButton("Delete") { dialog, _ ->
                 // Delete the item from the data list
                 // viewModel.deleteContacts(view,position)
-                contactProfileData.removeAt(position)
+               // contactProfileData.removeAt(position)
                 notifyItemRemoved(position)
 
                 dialog.dismiss()

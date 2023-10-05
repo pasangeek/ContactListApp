@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.example.contactlistapp'
-    compileSdk 33
+    compileSdk 34
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -15,7 +15,7 @@ android {
         defaultConfig {
         applicationId "com.example.contactlistapp"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -33,6 +33,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+    }
+    kotlinOptions {
         jvmTarget = '1.8'
     }
     buildFeatures {
@@ -43,14 +48,16 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
 
 
 
@@ -66,35 +73,35 @@ dependencies {
 //  ———  coroutines ——— ++
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1'
 
     // LiveData
 
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
 
 
     // -- mockito --
     androidTestImplementation 'org.mockito:mockito-core:4.0.0'
     // -- ActivityTestRule --
-    androidTestImplementation 'androidx.test:rules:1.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
 
 // --- Test ----
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     testImplementation 'org.mockito:mockito-core:2.28.2'
     androidTestImplementation 'org.mockito:mockito-android:2.24.5'
-    testImplementation 'androidx.arch.core:core-testing:2.0.0'
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
     androidTestImplementation 'org.mockito:mockito-core:3.9.0'
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     androidTestImplementation 'org.mockito:mockito-android:3.7.7'
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:4.9.1'
-    androidTestImplementation "org.jetbrains.kotlin:kotlin-reflect:1.6.20"
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
     androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-    androidTestImplementation 'androidx.test:core-ktx:1.4.0'
+    androidTestImplementation 'androidx.test:core-ktx:1.5.0'
 //room
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
@@ -104,12 +111,12 @@ dependencies {
 
     //coroutines
     implementation'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
     def lifecycle_version = "2.5.1"
     def activity_version="1.6.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.activity:activity-ktx:$activity_version"
     implementation'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
 }
