@@ -19,10 +19,10 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     // Declare view binding, view model, and adapter
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: ContactProfileViewModel
-    private lateinit var adapter: ContactProfileAdapter
-    private lateinit var userList: ArrayList<ContactProfileData>
+    lateinit var binding: ActivityMainBinding
+    lateinit var viewModel: ContactProfileViewModel
+    lateinit var adapter: ContactProfileAdapter
+    lateinit var userList: ArrayList<ContactProfileData>
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,67 +55,13 @@ class MainActivity : AppCompatActivity() {
         // Set up the "Add New Contact" button click listene
         binding.btAddNewContact.setOnClickListener {
             // Inflate the dialog layout using data binding
-            val inflater = LayoutInflater.from(this)
+            onAddNewContactButtonClick()
+
+        }
+
+        fun onAddNewContactButtonClick(){
 
 
-            val dialogBinding: AddnewcontactBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.addnewcontact,
-                null,
-                false
-            )
-            dialogBinding.vm = viewModel
-            dialogBinding.lifecycleOwner = this
-
-            val nameBB = dialogBinding.etName
-            val emailBB = dialogBinding.etEmail
-            val numberBB = dialogBinding.etNumber
-
-            // Show an AlertDialog for adding new contact
-            AlertDialog.Builder(this)
-                .setView(dialogBinding.root)
-                .setPositiveButton("OK") { dialog, _ ->
-                    val name = nameBB.text.toString()
-                    val number = numberBB.text.toString()
-                    val email = emailBB.text.toString()
-                    val missingFields = mutableListOf<String>()
-
-                    if (name.isEmpty()) {
-                        missingFields.add("Name")
-                    }
-
-                    if (number.isEmpty()) {
-                        missingFields.add("Number")
-                    }
-
-                    if (email.isEmpty()) {
-                        missingFields.add("Email")
-                    }
-
-                    if (missingFields.isEmpty()) {
-                        userList.add(
-                            ContactProfileData(
-
-                                " $name",
-                                " $number","$email"
-
-
-
-                            )
-                        )
-                        adapter.notifyDataSetChanged()
-                        Toast.makeText(this, getString(R.string.toast_adding_user_success), Toast.LENGTH_SHORT).show()
-                        dialog.dismiss()
-                        Toast.makeText(this, getString(R.string.toast_adding_contact), Toast.LENGTH_LONG).show()
-                    } else {
-                        val missingFieldsMessage = missingFields.joinToString(", ")
-                        val errorMessage = "Please fill in the following fields: $missingFieldsMessage"
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-                    }
-                }.setNegativeButton("Cancel") { _, _ ->
-                    Toast.makeText(this, getString(R.string.toast_cancel), Toast.LENGTH_LONG).show()
-                }
-                .create().show()
 
         }
         // Initialize the ViewModel using ViewModelProvider
@@ -142,6 +88,71 @@ class MainActivity : AppCompatActivity() {
         // Update the contact profile list in the ViewModel
         viewModel.updateContactProfileList(userList)
 
+
+    }
+
+    fun onAddNewContactButtonClick() {
+        val inflater = LayoutInflater.from(this)
+
+
+        var dialogBinding: AddnewcontactBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.addnewcontact,
+            null,
+            false
+        )
+        dialogBinding.vm = viewModel
+        dialogBinding.lifecycleOwner = this
+
+        val nameBB = dialogBinding.etName
+        val emailBB = dialogBinding.etEmail
+        val numberBB = dialogBinding.etNumber
+
+        // Show an AlertDialog for adding new contact
+        AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .setPositiveButton("OK") { dialog, _ ->
+                val name = nameBB.text.toString()
+                val number = numberBB.text.toString()
+                val email = emailBB.text.toString()
+                val missingFields = mutableListOf<String>()
+
+                if (name.isEmpty()) {
+                    missingFields.add("Name")
+                }
+
+                if (number.isEmpty()) {
+                    missingFields.add("Number")
+                }
+
+                if (email.isEmpty()) {
+                    missingFields.add("Email")
+                }
+
+                if (missingFields.isEmpty()) {
+                    userList.add(
+                        ContactProfileData(
+
+                            " $name",
+                            " $number","$email"
+
+
+
+                        )
+                    )
+                    adapter.notifyDataSetChanged()
+                    Toast.makeText(this, getString(R.string.toast_adding_user_success), Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    Toast.makeText(this, getString(R.string.toast_adding_contact), Toast.LENGTH_LONG).show()
+                } else {
+                    val missingFieldsMessage = missingFields.joinToString(", ")
+                    val errorMessage = "Please fill in the following fields: $missingFieldsMessage"
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }.setNegativeButton("Cancel") { _, _ ->
+                Toast.makeText(this, getString(R.string.toast_cancel), Toast.LENGTH_LONG).show()
+            }
+            .create().show()
 
     }
 
