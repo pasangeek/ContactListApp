@@ -9,6 +9,7 @@ import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.Contact
+import com.example.contactlistapp.Data.ContactProfileViewModel
 import com.example.contactlistapp.R
 import com.example.contactlistapp.databinding.ListItemBinding
 

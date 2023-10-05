@@ -3,6 +3,7 @@ package com.example.contactlistapp.view
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.contactlistapp.Data.Contact
+import com.example.contactlistapp.Data.ContactProfileViewModel
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.Before

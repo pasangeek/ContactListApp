@@ -14,7 +14,7 @@ import com.example.contactlistapp.Data.Contact
 import com.example.contactlistapp.databinding.ActivityMainBinding
 import com.example.contactlistapp.databinding.AddnewcontactBinding
 import com.example.contactlistapp.view.ContactProfileAdapter
-import com.example.contactlistapp.view.ContactProfileViewModel
+import com.example.contactlistapp.Data.ContactProfileViewModel
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {

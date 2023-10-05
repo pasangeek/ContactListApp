@@ -9,7 +9,7 @@ import com.example.contactlistapp.Data.Contact
 
 import com.example.contactlistapp.MainActivity
 import com.example.contactlistapp.view.ContactProfileAdapter
-import com.example.contactlistapp.view.ContactProfileViewModel
+import com.example.contactlistapp.Data.ContactProfileViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.contactlistapp.view.ContactProfileViewModel" />
+            type="com.example.contactlistapp.Data.ContactProfileViewModel" />
     </data>
 
 
