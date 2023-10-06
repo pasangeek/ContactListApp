@@ -20,8 +20,8 @@ class ContactProfileAdapter(
 ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
 
-
-    fun setFilteredList(contactProfileData: ArrayList<Contact>) {
+private var userList = emptyList<Contact>()
+    fun setFilteredList(contactProfileData: List<Contact>) {
         this.contactProfileData = contactProfileData
         notifyDataSetChanged()
     }
@@ -178,6 +178,7 @@ currentItem.email = newEmail
             }
 
             // Expand/Collapse the clicked item
+            this.userList= contactProfileData
             contactsProfile.isExpandable = !isExpanded
             notifyItemChanged(position)
         }

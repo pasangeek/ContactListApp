@@ -14,20 +14,24 @@ import com.example.contactlistapp.Data.Contact
 import com.example.contactlistapp.Data.ContactProfileViewModel
 import com.example.contactlistapp.R
 import com.example.contactlistapp.databinding.AddnewcontactBinding
+import com.example.contactlistapp.databinding.FragmentAddContactBinding
 import com.example.contactlistapp.databinding.FragmentContactListBinding
+import com.example.contactlistapp.view.ContactProfileAdapter
 
 
 class AddContactFragment : Fragment() {
-    private lateinit var _binding : AddnewcontactBinding
+    private lateinit var _binding : FragmentAddContactBinding
 private lateinit var viewModel: ContactProfileViewModel
+    private lateinit var adapter: ContactProfileAdapter
+    private lateinit var userList: ArrayList<Contact>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       _binding = AddnewcontactBinding.inflate(inflater, container, false)
+       _binding = FragmentAddContactBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ContactProfileViewModel::class.java)
-        _binding.lifecycleOwner = this
+        userList = ArrayList()
         val view = _binding.root
 
         _binding.btAdd.setOnClickListener{
