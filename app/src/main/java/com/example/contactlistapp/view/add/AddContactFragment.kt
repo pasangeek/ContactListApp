@@ -49,21 +49,40 @@ private fun insertDataToTable(){
 
 
 
-    if (inputCheck(name, number, email)) {
+    val emptyFields = ArrayList<String>() // List to store names of empty fields
 
+    if (name.isEmpty()) {
+        emptyFields.add("Name")
+    }
+    if (number.isEmpty()) {
+        emptyFields.add("Number")
+    } else if (number.length != 10 || !number.all { it.isDigit() }) {
+        // Check if the number has exactly 10 digits and is numeric
+        Toast.makeText(requireContext(), "Please enter a valid 10-digit numeric number", Toast.LENGTH_LONG).show()
+        return // Exit the function if the number is invalid
+    }
+    if (email.isEmpty()) {
+        emptyFields.add("Email")
+    } else if (!isEmailValid(email)) {
+        // Check if the email is in a valid format
+        Toast.makeText(requireContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show()
+        return // Exit the function if the email is not valid
+    }
+
+    if (emptyFields.isEmpty()) {
         val contact = Contact(0, name, number, email)
         viewModel.addUser(contact)
         Toast.makeText(requireContext(), "Contact Added Successfully", Toast.LENGTH_LONG).show()
-
         findNavController().navigate(R.id.action_addContactFragment_to_contactListFragment)
-    }else{
-
-        Toast.makeText(requireContext(), "Please Fill all fields", Toast.LENGTH_LONG).show()
+    } else {
+        val message = "Please fill in the following fields: ${emptyFields.joinToString(", ")}"
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
     }
 
-
-    private fun inputCheck(name:String,number:String,email:String):Boolean{
-        return !(TextUtils.isEmpty(name)&&TextUtils.isEmpty(number)&&email.isEmpty())
+    fun isEmailValid(email: String): Boolean {
+        val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$"
+        return email.matches(emailRegex.toRegex())
     }
+  
 }

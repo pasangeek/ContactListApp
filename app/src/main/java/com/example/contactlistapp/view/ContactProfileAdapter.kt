@@ -113,11 +113,6 @@ class ContactProfileAdapter(
 
     // Displays a confirmation dialog for deleting an item
     private fun showDeleteConfirmationDialog(view: View, position: Int) {
-        val inflater = LayoutInflater.from(view.context)
-        val deleteContactById = inflater.inflate(R.layout.addnewcontact, null)
-        val nameEditText = deleteContactById.findViewById<EditText>(R.id.etName)
-        val numberEditText = deleteContactById.findViewById<EditText>(R.id.etNumber)
-        val emailEditText = deleteContactById.findViewById<EditText>(R.id.etEmail)
 
         val currentItem = contactProfileData[position]
 
@@ -127,8 +122,6 @@ class ContactProfileAdapter(
             .setTitle("Delete Item")
             .setMessage("Are you sure you want to delete this item?")
             .setPositiveButton("Delete") { dialog, _ ->
-
-
 
 
                 // Delete the item from the data list
