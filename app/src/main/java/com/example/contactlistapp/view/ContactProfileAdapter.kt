@@ -20,7 +20,7 @@ class ContactProfileAdapter(
 ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
 
-private var userList = emptyList<Contact>()
+    private var userList = emptyList<Contact>()
     fun setFilteredList(contactProfileData: List<Contact>) {
         this.contactProfileData = contactProfileData
         notifyDataSetChanged()
@@ -44,6 +44,7 @@ private var userList = emptyList<Contact>()
                 R.id.editText -> {
                     // Handle the Edit option for the specific item at 'position'
                     // Show an AlertDialog for editing
+
                     showEditDialog(view, position)
                     true
                 }
@@ -70,6 +71,7 @@ private var userList = emptyList<Contact>()
 
 
     }
+
     // Displays an edit dialog when the "Edit" option is clicked in the popup menu
     private fun showEditDialog(view: View, position: Int) {
 
@@ -96,7 +98,9 @@ private var userList = emptyList<Contact>()
                 val newEmail = emailEditText.text.toString()
                 currentItem.name = newName
                 currentItem.number = newNumber
-currentItem.email = newEmail
+                currentItem.email = newEmail
+                // Call the updateContact function in the ViewModel to update the database
+                viewModel.updateContact(currentItem)
                 notifyItemChanged(position)
                 dialog.dismiss()
             }
@@ -106,6 +110,7 @@ currentItem.email = newEmail
             .create()
             .show()
     }
+
     // Displays a confirmation dialog for deleting an item
     private fun showDeleteConfirmationDialog(view: View, position: Int) {
 
@@ -118,7 +123,7 @@ currentItem.email = newEmail
             .setPositiveButton("Delete") { dialog, _ ->
                 // Delete the item from the data list
                 // viewModel.deleteContacts(view,position)
-               // contactProfileData.removeAt(position)
+                // contactProfileData.removeAt(position)
                 notifyItemRemoved(position)
 
                 dialog.dismiss()
@@ -129,6 +134,7 @@ currentItem.email = newEmail
             .create()
             .show()
     }
+
     // Inflates the layout for each list item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
 
@@ -143,6 +149,7 @@ currentItem.email = newEmail
 
     // Returns the total number of items in the dataset
     override fun getItemCount(): Int = contactProfileData.size
+
     // Binds data to the views in each list item
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         // Bind the contact profile data to the layout using data binding
@@ -178,7 +185,7 @@ currentItem.email = newEmail
             }
 
             // Expand/Collapse the clicked item
-            this.userList= contactProfileData
+            this.userList = contactProfileData
             contactsProfile.isExpandable = !isExpanded
             notifyItemChanged(position)
         }

@@ -37,4 +37,14 @@ class ContactProfileViewModel (application : Application): AndroidViewModel(appl
             repository.addContact(contact)
         }
     }
+
+    fun updateContact(contact: Contact){
+
+viewModelScope.launch (Dispatchers.IO){
+
+
+    repository.updateContact(contact)
+}
+
+    }
 }

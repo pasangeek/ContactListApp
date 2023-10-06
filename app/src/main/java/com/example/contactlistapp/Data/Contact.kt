@@ -1,5 +1,7 @@
 package com.example.contactlistapp.Data
 
+
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
