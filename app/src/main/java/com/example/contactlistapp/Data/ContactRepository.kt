@@ -9,7 +9,13 @@ class ContactRepository(private val contactDao: ContactDao) {
 
         contactDao.updateContact(contact)
     }
+    suspend fun deleteContact(contact: Contact) {
+        contactDao.deleteContact(contact)
+    }
 
+    suspend fun deleteContactById(contactId: Long) {
+        contactDao.deleteById(contactId)
+    }
     suspend fun addContact(contact: Contact){
         contactDao.addContact(contact)
     }

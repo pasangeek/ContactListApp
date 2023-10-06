@@ -47,4 +47,16 @@ viewModelScope.launch (Dispatchers.IO){
 }
 
     }
+
+    fun deleteContact(contact: Contact) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteContact(contact)
+        }
+    }
+
+    fun deleteContactById(contactId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteContactById(contactId)
+        }
+    }
 }
