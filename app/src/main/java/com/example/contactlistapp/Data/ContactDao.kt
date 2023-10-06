@@ -13,11 +13,13 @@ interface ContactDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addContact(contact: Contact)
-@Update
-suspend fun updateContact(contact: Contact)
 
-@Delete
-suspend fun deleteContact(contact: Contact)
+    @Update
+    suspend fun updateContact(contact: Contact)
+
+    @Delete
+    suspend fun deleteContact(contact: Contact)
+
     @Query("DELETE FROM contact_profile WHERE id = :contactId")
     suspend fun deleteById(contactId: Long)
 

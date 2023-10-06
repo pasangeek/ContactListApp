@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ContactProfileAdapter"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ContactProfileAdapter">
 
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="Name input field"
             android:hint="Name"
-            android:inputType="text"
             android:imeOptions="actionNext"
             android:importantForAccessibility="yes"
-            android:contentDescription="Name input field"/>
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/etNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="Phone number input field"
             android:hint="Phone Number"
-            android:inputType="phone"
             android:imeOptions="actionNext"
             android:importantForAccessibility="yes"
-            android:contentDescription="Phone number input field"/>
+            android:inputType="phone" />
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="Email input field"
             android:hint="Email"
-            android:inputType="textEmailAddress"
             android:imeOptions="actionDone"
             android:importantForAccessibility="yes"
-            android:contentDescription="Email input field"/>
+            android:inputType="textEmailAddress" />
 
         <Button
             android:id="@+id/btAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add New Contact"
+            android:contentDescription="Add contact button"
             android:importantForAccessibility="yes"
-            android:contentDescription="Add contact button"/>
+            android:text="Add New Contact" />
     </LinearLayout>
 
 

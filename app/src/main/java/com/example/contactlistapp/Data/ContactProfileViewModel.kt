@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
-class ContactProfileViewModel (application : Application): AndroidViewModel(application) {
+class ContactProfileViewModel(application: Application) : AndroidViewModel(application) {
     /*val _contactList = MutableLiveData<ArrayList<Contact>>()
     val contact: LiveData<ArrayList<Contact>> = _contactList
 
@@ -32,19 +32,19 @@ class ContactProfileViewModel (application : Application): AndroidViewModel(appl
         readAllData = repository.readAllData
     }
 
-    fun addUser(contact: Contact){
+    fun addUser(contact: Contact) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addContact(contact)
         }
     }
 
-    fun updateContact(contact: Contact){
+    fun updateContact(contact: Contact) {
 
-viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
 
 
-    repository.updateContact(contact)
-}
+            repository.updateContact(contact)
+        }
 
     }
 

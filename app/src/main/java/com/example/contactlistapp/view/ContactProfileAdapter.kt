@@ -77,7 +77,7 @@ class ContactProfileAdapter(
 
 
         val inflater = LayoutInflater.from(view.context)
-        val editView = inflater.inflate(R.layout.addnewcontact, null)
+        val editView = inflater.inflate(R.layout.fragment_add_contact, null)
 
 
         val nameEditText = editView.findViewById<EditText>(R.id.etName)
