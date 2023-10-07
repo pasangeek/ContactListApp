@@ -4,6 +4,7 @@ package com.example.contactlistapp.Data
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,15 +14,6 @@ import kotlinx.coroutines.launch
 import java.util.ArrayList
 
 class ContactProfileViewModel(application: Application) : AndroidViewModel(application) {
-    /*val _contactList = MutableLiveData<ArrayList<Contact>>()
-    val contact: LiveData<ArrayList<Contact>> = _contactList
-
-
-
-    fun updateContactProfileList(userList: ArrayList<Contact>) {
-
-        _contactList.value = userList
-    }*/
 
     val readAllData: LiveData<List<Contact>>
     private val repository: ContactRepository
@@ -57,4 +49,23 @@ class ContactProfileViewModel(application: Application) : AndroidViewModel(appli
     fun searchContacts(query: String): LiveData<List<Contact>> {
         return repository.searchContacts(query)
     }
+  /* fun searchContacts(query: String): LiveData<List<Contact>> {
+       val searchResults: LiveData<List<Contact>> = ContactRepository.searchContacts(query)
+
+       // Create an empty LiveData to handle no results
+       val emptyListLiveData: LiveData<List<Contact>> = MutableLiveData(emptyList())
+
+       // Use MediatorLiveData to switch between searchResults and emptyListLiveData
+       val resultLiveData = MediatorLiveData<List<Contact>>()
+
+       resultLiveData.addSource(searchResults) { contacts ->
+           if (contacts.isEmpty()) {
+               resultLiveData.value = emptyList()
+           } else {
+               resultLiveData.value = contacts
+           }
+       }
+
+       return resultLiveData
+   }*/
 }

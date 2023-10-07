@@ -67,6 +67,6 @@ class ContactListFragment : Fragment() {
         return view
     }
 
-    // Filter the list based on the search query
+
 
 }

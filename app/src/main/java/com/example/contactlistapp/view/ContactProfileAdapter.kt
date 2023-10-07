@@ -24,10 +24,7 @@ class ContactProfileAdapter(
     private var userList = emptyList<Contact>()
 
 
-    fun setFilteredList(contactProfileData: List<Contact>) {
-        this.contactProfileData = contactProfileData
-        notifyDataSetChanged()
-    }
+
 
     // Store the position of the currently expanded item
     private var expandedPosition: Int = RecyclerView.NO_POSITION
