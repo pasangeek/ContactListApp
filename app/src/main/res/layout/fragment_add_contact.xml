@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ContactProfileAdapter">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Name input field"
+            android:hint="Name"
+            android:imeOptions="actionNext"
+            android:importantForAccessibility="yes"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/etNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Phone number input field"
+            android:hint="Phone Number"
+            android:imeOptions="actionNext"
+            android:importantForAccessibility="yes"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Email input field"
+            android:hint="Email"
+            android:imeOptions="actionDone"
+            android:importantForAccessibility="yes"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/btAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Add contact button"
+            android:importantForAccessibility="yes"
+            android:text="Add New Contact" />
+    </LinearLayout>
+
+
+</layout>

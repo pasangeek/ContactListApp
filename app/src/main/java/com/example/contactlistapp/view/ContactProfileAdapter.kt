@@ -1,33 +1,30 @@
 package com.example.contactlistapp.view
 
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contactlistapp.Data.ContactProfileData
+import com.example.contactlistapp.Data.Contact
+import com.example.contactlistapp.Data.ContactProfileViewModel
 import com.example.contactlistapp.R
-import com.example.contactlistapp.databinding.ActivityMainBinding
-import com.example.contactlistapp.databinding.AddnewcontactBinding
 import com.example.contactlistapp.databinding.ListItemBinding
 
 
 class ContactProfileAdapter(
-    var contactProfileData: ArrayList<ContactProfileData>,
+    var contactProfileData: List<Contact>,
     private val viewModel: ContactProfileViewModel
 ) :
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
 
+    private var userList = emptyList<Contact>()
 
-    fun setFilteredList(contactProfileData: ArrayList<ContactProfileData>) {
-        this.contactProfileData = contactProfileData
-        notifyDataSetChanged()
-    }
+
+
 
     // Store the position of the currently expanded item
     private var expandedPosition: Int = RecyclerView.NO_POSITION
@@ -47,6 +44,7 @@ class ContactProfileAdapter(
                 R.id.editText -> {
                     // Handle the Edit option for the specific item at 'position'
                     // Show an AlertDialog for editing
+
                     showEditDialog(view, position)
                     true
                 }
@@ -73,12 +71,13 @@ class ContactProfileAdapter(
 
 
     }
+
     // Displays an edit dialog when the "Edit" option is clicked in the popup menu
     private fun showEditDialog(view: View, position: Int) {
 
 
         val inflater = LayoutInflater.from(view.context)
-        val editView = inflater.inflate(R.layout.addnewcontact, null)
+        val editView = inflater.inflate(R.layout.fragment_add_contact, null)
 
 
         val nameEditText = editView.findViewById<EditText>(R.id.etName)
@@ -99,7 +98,9 @@ class ContactProfileAdapter(
                 val newEmail = emailEditText.text.toString()
                 currentItem.name = newName
                 currentItem.number = newNumber
-currentItem.email = newEmail
+                currentItem.email = newEmail
+                // Call the updateContact function in the ViewModel to update the database
+                viewModel.updateContact(currentItem)
                 notifyItemChanged(position)
                 dialog.dismiss()
             }
@@ -109,19 +110,24 @@ currentItem.email = newEmail
             .create()
             .show()
     }
+
     // Displays a confirmation dialog for deleting an item
     private fun showDeleteConfirmationDialog(view: View, position: Int) {
 
+        val currentItem = contactProfileData[position]
 
-        val context = LayoutInflater.from(view.context) // Replace with your context source
+
 
         AlertDialog.Builder(view.context)
             .setTitle("Delete Item")
             .setMessage("Are you sure you want to delete this item?")
             .setPositiveButton("Delete") { dialog, _ ->
+
+
                 // Delete the item from the data list
                 // viewModel.deleteContacts(view,position)
-                contactProfileData.removeAt(position)
+                // contactProfileData.removeAt(position)
+                viewModel.deleteContact(currentItem)
                 notifyItemRemoved(position)
 
                 dialog.dismiss()
@@ -132,6 +138,7 @@ currentItem.email = newEmail
             .create()
             .show()
     }
+
     // Inflates the layout for each list item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
 
@@ -146,6 +153,7 @@ currentItem.email = newEmail
 
     // Returns the total number of items in the dataset
     override fun getItemCount(): Int = contactProfileData.size
+
     // Binds data to the views in each list item
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         // Bind the contact profile data to the layout using data binding
@@ -181,15 +189,28 @@ currentItem.email = newEmail
             }
 
             // Expand/Collapse the clicked item
+            this.userList = contactProfileData
             contactsProfile.isExpandable = !isExpanded
             notifyItemChanged(position)
         }
     }
-
+    // Custom method to submit a new list of contacts
+    fun submitContactList(contactList: List<Contact>) {
+        contactProfileData = contactList
+        notifyDataSetChanged()
+    }
 
 }
 
+class ContactDiffCallback : DiffUtil.ItemCallback<Contact>() {
+    override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+        return oldItem.id == newItem.id
+    }
 
+    override fun areContentsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+        return oldItem == newItem
+    }
+}
 
 
 

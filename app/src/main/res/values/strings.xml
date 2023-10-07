@@ -8,5 +8,7 @@
     <string name="toast_cancel">Cancel</string>
     <string name="toast_no_data_found">No Data found</string>
     <string name="toast_missing_fields">Please fill in the following fields: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
