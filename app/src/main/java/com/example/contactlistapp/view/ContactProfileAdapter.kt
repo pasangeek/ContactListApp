@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactlistapp.Data.Contact
 import com.example.contactlistapp.Data.ContactProfileViewModel
@@ -21,6 +22,8 @@ class ContactProfileAdapter(
     RecyclerView.Adapter<ContactProfileAdapter.ProfileViewHolder>() {
 
     private var userList = emptyList<Contact>()
+
+
     fun setFilteredList(contactProfileData: List<Contact>) {
         this.contactProfileData = contactProfileData
         notifyDataSetChanged()
@@ -194,11 +197,23 @@ class ContactProfileAdapter(
             notifyItemChanged(position)
         }
     }
-
+    // Custom method to submit a new list of contacts
+    fun submitContactList(contactList: List<Contact>) {
+        contactProfileData = contactList
+        notifyDataSetChanged()
+    }
 
 }
 
+class ContactDiffCallback : DiffUtil.ItemCallback<Contact>() {
+    override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+        return oldItem.id == newItem.id
+    }
 
+    override fun areContentsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+        return oldItem == newItem
+    }
+}
 
 
 

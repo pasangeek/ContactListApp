@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,11 +20,11 @@ import com.example.contactlistapp.view.ContactProfileAdapter
 class ContactListFragment : Fragment() {
 
 
-private lateinit var _binding : FragmentContactListBinding
+    private lateinit var _binding: FragmentContactListBinding
 
     private lateinit var viewModel: ContactProfileViewModel
     private lateinit var adapter: ContactProfileAdapter
-    private  var userList: List<Contact> = emptyList()
+    private var userList: List<Contact> = emptyList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,8 +35,7 @@ private lateinit var _binding : FragmentContactListBinding
         viewModel = ViewModelProvider(this).get(ContactProfileViewModel::class.java)
         adapter = ContactProfileAdapter(userList, viewModel)
         _binding.recyclerView.adapter = adapter
-        _binding.recyclerView.layoutManager=LinearLayoutManager(requireContext())
-
+        _binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
         viewModel.readAllData.observe(viewLifecycleOwner, Observer { contactList ->
@@ -46,12 +46,27 @@ private lateinit var _binding : FragmentContactListBinding
             adapter.contactProfileData = userList
             adapter.notifyDataSetChanged()
         })
-_binding.floatingActionButton.setOnClickListener{
+        _binding.floatingActionButton.setOnClickListener {
 
-    findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
-}
-return view
+            findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
+        }
+     _binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+         override fun onQueryTextSubmit(query: String?): Boolean {
+             // Handle search query submission if needed
+             return false
+         }
+
+         override fun onQueryTextChange(newText: String?): Boolean {
+             // Update the contact list based on the search query
+             viewModel.searchContacts(newText.orEmpty()).observe(viewLifecycleOwner, Observer { contactList ->
+                 adapter.submitContactList(contactList)
+             })
+             return true
+         }
+     })
+        return view
     }
 
+    // Filter the list based on the search query
 
 }

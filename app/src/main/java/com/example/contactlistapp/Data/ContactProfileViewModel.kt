@@ -54,9 +54,7 @@ class ContactProfileViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
-    fun deleteContactById(contactId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteContactById(contactId)
-        }
+    fun searchContacts(query: String): LiveData<List<Contact>> {
+        return repository.searchContacts(query)
     }
 }

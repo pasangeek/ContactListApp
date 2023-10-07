@@ -13,11 +13,11 @@ class ContactRepository(private val contactDao: ContactDao) {
         contactDao.deleteContact(contact)
     }
 
-    suspend fun deleteContactById(contactId: Long) {
-        contactDao.deleteById(contactId)
-    }
+
     suspend fun addContact(contact: Contact){
         contactDao.addContact(contact)
     }
-
+    fun searchContacts(query: String): LiveData<List<Contact>> {
+        return contactDao.searchContacts("%$query%") // Use '%' to allow partial matching
+    }
 }

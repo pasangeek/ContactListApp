@@ -20,10 +20,10 @@ interface ContactDao {
     @Delete
     suspend fun deleteContact(contact: Contact)
 
-    @Query("DELETE FROM contact_profile WHERE id = :contactId")
-    suspend fun deleteById(contactId: Long)
 
 
+    @Query("SELECT * FROM contact_profile WHERE name LIKE :query OR number LIKE :query OR email LIKE :query")
+    fun searchContacts(query: String): LiveData<List<Contact>>
     @Query("SELECT * FROM contact_profile ORDER BY id ASC")
     fun readAllData(): LiveData<List<Contact>>
 
