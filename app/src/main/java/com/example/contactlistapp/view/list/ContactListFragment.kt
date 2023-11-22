@@ -20,7 +20,7 @@ import com.example.contactlistapp.view.ContactProfileAdapter
 class ContactListFragment : Fragment() {
 
 
-    private lateinit var _binding: FragmentContactListBinding
+    private var _binding: FragmentContactListBinding? = null
 
     private lateinit var viewModel: ContactProfileViewModel
     private lateinit var adapter: ContactProfileAdapter
@@ -31,11 +31,11 @@ class ContactListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentContactListBinding.inflate(inflater, container, false)
-        val view = _binding.root
+        val view = _binding!!.root
         viewModel = ViewModelProvider(this).get(ContactProfileViewModel::class.java)
         adapter = ContactProfileAdapter(userList, viewModel)
-        _binding.recyclerView.adapter = adapter
-        _binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        _binding!!.recyclerView.adapter = adapter
+        _binding!!.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
         viewModel.readAllData.observe(viewLifecycleOwner, Observer { contactList ->
@@ -46,11 +46,11 @@ class ContactListFragment : Fragment() {
             adapter.contactProfileData = userList
             adapter.notifyDataSetChanged()
         })
-        _binding.floatingActionButton.setOnClickListener {
+        _binding!!.floatingActionButton.setOnClickListener {
 
             findNavController().navigate(R.id.action_contactListFragment_to_addContactFragment)
         }
-     _binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+     _binding!!.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
          override fun onQueryTextSubmit(query: String?): Boolean {
              // Handle search query submission if needed
              return false
@@ -67,6 +67,11 @@ class ContactListFragment : Fragment() {
         return view
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Clearing the binding reference
+        _binding = null
 
+    }
 
 }

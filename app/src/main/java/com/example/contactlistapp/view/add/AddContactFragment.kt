@@ -16,7 +16,7 @@ import com.example.contactlistapp.view.ContactProfileAdapter
 
 
 class AddContactFragment : Fragment() {
-    private lateinit var _binding: FragmentAddContactBinding
+    private var _binding: FragmentAddContactBinding? = null
     private lateinit var viewModel: ContactProfileViewModel
     private lateinit var adapter: ContactProfileAdapter
     private lateinit var userList: ArrayList<Contact>
@@ -28,9 +28,9 @@ class AddContactFragment : Fragment() {
         _binding = FragmentAddContactBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ContactProfileViewModel::class.java)
         userList = ArrayList()
-        val view = _binding.root
+        val view = _binding!!.root
 
-        _binding.btAdd.setOnClickListener {
+        _binding!!.btAdd.setOnClickListener {
             insertDataToTable()
 
         }
@@ -39,9 +39,9 @@ class AddContactFragment : Fragment() {
     }
 
     private fun insertDataToTable() {
-        val name = _binding.etName.text.toString()
-        val number = _binding.etNumber.text.toString()
-        val email = _binding.etEmail.text.toString()
+        val name = _binding!!.etName.text.toString()
+        val number = _binding!!.etNumber.text.toString()
+        val email = _binding!!.etEmail.text.toString()
 
 
         val emptyFields = ArrayList<String>() // List to store names of empty fields
@@ -87,5 +87,10 @@ class AddContactFragment : Fragment() {
         val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$"
         return email.matches(emailRegex.toRegex())
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Clearing the binding reference
+        _binding = null
 
+    }
 }
